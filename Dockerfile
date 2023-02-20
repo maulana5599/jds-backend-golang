@@ -2,7 +2,7 @@ from golang as builder
 
 WORKDIR /app
 ADD . .
-RUN go build -o /usr/local/bin/jds-backend-spp
+RUN go build -o /usr/local/bin/jds-backend-app
 
-EXPOSE 3000
+EXPOSE 3001
 CMD ["/usr/local/bin/jds-backend-app"]
