@@ -1,0 +1,19 @@
+version: "3.3"
+
+services:
+  app:
+    build: 
+      dockerfile: Dockerfile
+      context: .
+    image: jds-backend-app
+    container_name: jds-backend-go
+    ports:
+      - 4044:3000
+    restart: "unless-stopped"
+    tty: true
+    networks:
+      - jds-network
+
+networks:
+  jds-network:
+    driver: bridge
