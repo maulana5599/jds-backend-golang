@@ -25,7 +25,7 @@ func main() {
 	routes.Routes(app)
 
 	app.Use(jwtware.New(jwtware.Config{
-		SigningKey: []byte("MooAZePGCWmF8M4SIXeqDkhd1OKNN9DMd1N2AVuQDm3xqdCXJwqcIdYH61UibOxC"),
+		SigningKey: []byte("izdg9TbbGqzYCTubwTnaWVjQEs9z6GRvKJNPDYpkDxT5GuEcSOhS7RVyVwcGVBQu"),
 	}))
 
 	routes.RestrictedRoutes(app)

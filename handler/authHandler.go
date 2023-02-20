@@ -17,7 +17,7 @@ var (
 	// Obviously, this is just a test example. Do not do this in production.
 	// In production, you would have the private key and public key pair generated
 	// in advance. NEVER add a private key to any GitHub repo.
-	privateKey = "MooAZePGCWmF8M4SIXeqDkhd1OKNN9DMd1N2AVuQDm3xqdCXJwqcIdYH61UibOxC"
+	privateKey = "izdg9TbbGqzYCTubwTnaWVjQEs9z6GRvKJNPDYpkDxT5GuEcSOhS7RVyVwcGVBQu"
 )
 
 func Auth(ctx *fiber.Ctx) error {
