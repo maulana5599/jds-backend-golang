@@ -1,7 +1,6 @@
 package repository
 
 import (
-	"fmt"
 	"jdsapp/config"
 	"jdsapp/entity"
 )
@@ -12,7 +11,6 @@ func Authentication(nik string, password string) (check bool, HashPassword strin
 		Where("nik = ?", nik).
 		First(&result)
 
-	fmt.Println("HALOOOOOOOOOOOOOOoo")
 	if tx.Error != nil {
 		return false, "nil"
 	}
