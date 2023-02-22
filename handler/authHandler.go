@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"jdsapp/entity"
 	"jdsapp/helpers"
 	"jdsapp/repository"
@@ -13,13 +12,6 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-var (
-	// Obviously, this is just a test example. Do not do this in production.
-	// In production, you would have the private key and public key pair generated
-	// in advance. NEVER add a private key to any GitHub repo.
-	privateKey = "izdg9TbbGqzYCTubwTnaWVjQEs9z6GRvKJNPDYpkDxT5GuEcSOhS7RVyVwcGVBQu"
-)
-
 func Auth(ctx *fiber.Ctx) error {
 
 	requestAuth := new(entity.RequestAuth)
@@ -27,7 +19,6 @@ func Auth(ctx *fiber.Ctx) error {
 	if err := ctx.BodyParser(requestAuth); err != nil {
 		return helpers.ResponseError(http.StatusBadRequest, err.Error(), ctx)
 	}
-	fmt.Println(requestAuth, privateKey)
 	// Cek user
 	check, passwordUser := repository.Authentication(requestAuth.Nik, requestAuth.Password)
 
@@ -54,6 +45,7 @@ func Auth(ctx *fiber.Ctx) error {
 
 	// Create token
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	privateKey := helpers.GoDotEnvVariable("JWT_SECRET")
 
 	t, err := token.SignedString([]byte(privateKey))
 	if err != nil {

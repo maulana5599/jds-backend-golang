@@ -2,17 +2,19 @@ package main
 
 import (
 	"jdsapp/config"
-	"jdsapp/handler"
+	"jdsapp/helpers"
 	"jdsapp/routes"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	jwtware "github.com/gofiber/jwt/v3"
+	"github.com/joho/godotenv"
 )
 
 func main() {
 	app := fiber.New()
 	config.DatabaseConnection()
+	godotenv.Load(".env")
 
 	app.Use(cors.New())
 
@@ -24,12 +26,17 @@ func main() {
 
 	routes.Routes(app)
 
+	app.Get("/", func(ctx *fiber.Ctx) error {
+		return ctx.SendString("Selamat datang!")
+	})
+
+	privateKey := helpers.GoDotEnvVariable("JWT_SECRET")
+
 	app.Use(jwtware.New(jwtware.Config{
-		SigningKey: []byte("izdg9TbbGqzYCTubwTnaWVjQEs9z6GRvKJNPDYpkDxT5GuEcSOhS7RVyVwcGVBQu"),
+		SigningKey: []byte(privateKey),
 	}))
 
 	routes.RestrictedRoutes(app)
 
-	app.Get("/test", handler.TestJwt)
 	app.Listen(":3001")
 }
