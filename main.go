@@ -2,12 +2,10 @@ package main
 
 import (
 	"jdsapp/config"
-	"jdsapp/helpers"
 	"jdsapp/routes"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
-	jwtware "github.com/gofiber/jwt/v3"
 	"github.com/joho/godotenv"
 )
 
@@ -29,12 +27,6 @@ func main() {
 	app.Get("/", func(ctx *fiber.Ctx) error {
 		return ctx.SendString("Selamat datang!")
 	})
-
-	privateKey := helpers.GoDotEnvVariable("JWT_SECRET")
-
-	app.Use(jwtware.New(jwtware.Config{
-		SigningKey: []byte(privateKey),
-	}))
 
 	routes.RestrictedRoutes(app)
 

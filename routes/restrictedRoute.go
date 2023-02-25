@@ -2,6 +2,7 @@ package routes
 
 import (
 	"jdsapp/handler"
+	"jdsapp/middlewares"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -12,5 +13,5 @@ func RestrictedRoutes(app *fiber.App) {
 
 func Product(app *fiber.App) {
 	api := app.Group("api")
-	api.Get("/product", handler.GetProduct)
+	api.Get("/product", middlewares.Protected(), handler.GetProduct)
 }
